@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-from urllib import request, parse
 import http.cookiejar as cookielib
-import os
 import json
-import logging
+from urllib import request, parse
+
 
 class VoteHelper(object):
     """docstring for   HttpHelper"""
@@ -33,15 +32,23 @@ class VoteHelper(object):
                 result=True
         return result
 
-    def vote(self,username,passwd,app_id=10675,vote_id=115,vote_option_id=773):
-
-        self.__do_login(username,passwd)
-
-        req = request.Request('http://q.yiban.cn/vote/insertBoxAjax')
+    def vote(self,username,passwd,App_id,Vote_id,id1,id2,id3,id4,id5,id6,id7,id8,id9,id10):
+        if not  self.has_login:
+            self.__do_login(username,passwd)
+        req = request.Request('https://q.yiban.cn/vote/insertBoxAjax')
         vote_data = parse.urlencode([
-            ('App_id',app_id),
-            ('Vote_id',vote_id),
-            ('VoteOption_id',vote_option_id)
+            ('App_id',App_id),
+            ('Vote_id',Vote_id),
+            ('VoteOption_id[]',id1),
+            ('VoteOption_id[]',id2),
+            ('VoteOption_id[]',id3),
+            ('VoteOption_id[]',id4),
+            ('VoteOption_id[]',id5),
+            ('VoteOption_id[]',id6),
+            ('VoteOption_id[]',id7),
+            ('VoteOption_id[]',id8),
+            ('VoteOption_id[]',id9),
+            ('VoteOption_id[]',id10),
         ])
         with request.urlopen(req,data=vote_data.encode('utf-8')) as f:
             result = f.read().decode('utf-8')
@@ -50,19 +57,19 @@ class VoteHelper(object):
                 if(json_data['code']==200):
                     print('投票成功！用户名：%s' % username)
                     return 200
-                elif(json_data['code']==206):
+                elif(json_data['code']==208):
                     print('投票失败(重复投票)！用户名：%s' % username)
-                    return 206
+                    return 208
                 elif(json_data['code']==211):
                     print('投票失败(登录问题)!用户名：%s' % username)
                     return 211
-                elif(json_data['code']==204):
+                elif(json_data['code']==224):
                     print('投票失败(投票上线)!用户名：%s' % username)
-                    return 204
+                    return 224
+                else:
+                    print(json_data)
             except Exception:
                 print('投票失败(返回不为json)！用户名：%s' % username)
-            # print(json.dumps(json_data))
-            # print('vote result:'+str(json_data['code']))
         return 0
 
     def addcomment(self,username,passwd,appid=166525,type='extendcomment',code='extendcomment-1510073493139',title='说出你想对这些清云奖候选人想说的话',content="QQ群372875758",isAnonymous=1,isFeed=2,App_id=166525,url='https://q.yiban.cn/comment/addComment'):
