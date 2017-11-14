@@ -19,12 +19,13 @@ SELECT id,
                  ,[password]
              FROM user 
         """)
-    for r in cursor.fetchall():
-        usernmae = r[0]
-        password = r[1]
-        helper = VoteHelper()
-        result = helper.addcomment(usernmae, password)
-        print(result)
+    print(cursor.fetchall())
+    # for r in cursor.fetchall():
+    #     usernmae = r[0]
+    #     password = r[1]
+    #     helper = VoteHelper()
+    #     result = helper.addcomment(usernmae, password)
+    #     print(result)
 #c多进程
 def main():
     batch = 20
@@ -34,7 +35,7 @@ def main():
            SELECT id,
                  [username]
                  ,[password]
-             FROM user  
+             FROM user 
                """)
     useralllist =  c.fetchall()
     useralllist = list(useralllist)
@@ -62,7 +63,8 @@ def mulitvote(userlist):
         username = user[1]
         password = user[2]
         helper = VoteHelper()
-        helper.vote(username,password,166525,24993,544629,544631,544635,544637,544163,544323,544325,544327,544329,544331)
+        helper.vote(username,password,166525,24993,544323,1,2,3,4,5,6,7,8,9)
+
 
 
 #获取excel数据
@@ -82,6 +84,7 @@ def getuser():
         c.execute('''INSERT INTO user (ID,username, password)  VALUES (?,?,?)''',[ID,username,password])
     conn.commit()
     conn.close()
+
 
 if __name__ == '__main__':
     starttime = datetime.datetime.now()

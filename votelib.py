@@ -89,3 +89,7 @@ class VoteHelper(object):
             with request.urlopen(req, data=vote_data.encode('utf-8')) as f:
                 result = f.read().decode('utf-8')
         return result
+
+    def logincheck(self,username,passwd):
+        if self.__do_login(username, passwd):
+            return True
