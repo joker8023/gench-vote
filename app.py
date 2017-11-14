@@ -1,12 +1,11 @@
+import datetime
 import multiprocessing
 import sqlite3
-import urllib
-from urllib import request
-from urllib.request import urlopen
+
+import xlrd
 
 from votelib import VoteHelper
-import datetime
-import xlrd
+
 data_result = {'200':0,'206':0,'211':0,'204':0}
 
 #刷评论
@@ -65,7 +64,24 @@ def mulitvote(userlist):
         helper = VoteHelper()
         helper.vote(username,password,166525,24993,544323,1,2,3,4,5,6,7,8,9)
 
-
+def checklogin():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("""
+              SELECT id,
+                    [username]
+                    ,[password]
+                FROM user 
+                  """)
+    list = []
+    for user in  c.fetchall():
+        helper = VoteHelper()
+        if helper.logincheck(user[1],user[2]):
+            if  user[1]  not in list:
+                list.append(user[1])
+                c.execute('''INSERT INTO users (id,username, password)  VALUES (?,?,?)''',[None,user[1],user[2]])
+    conn.commit()
+    conn.close()
 
 #获取excel数据
 def getuser():
@@ -76,7 +92,6 @@ def getuser():
     c = conn.cursor()
     for rownum in range(0, nrows):
         row = table.row_values(rownum)
-        print(row)
         if row:
             ID = str(row[0]).replace('.0','')
             username = str(row[1]).replace('.0','')
@@ -88,6 +103,6 @@ def getuser():
 
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
-    getuser()
+    main()
     endtime = datetime.datetime.now()
     print(starttime,endtime)
