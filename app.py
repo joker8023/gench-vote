@@ -19,13 +19,13 @@ SELECT id,
                  ,[password]
              FROM user 
         """)
-    print(cursor.fetchall())
-    # for r in cursor.fetchall():
-    #     usernmae = r[0]
-    #     password = r[1]
-    #     helper = VoteHelper()
-    #     result = helper.addcomment(usernmae, password)
-    #     print(result)
+
+    for r in cursor.fetchall():
+        usernmae = r[0]
+        password = r[1]
+        helper = VoteHelper()
+        result = helper.addcomment(usernmae, password)
+        print(result)
 #c多进程
 def main():
     batch = 20
@@ -69,7 +69,7 @@ def mulitvote(userlist):
 
 #获取excel数据
 def getuser():
-    data = xlrd.open_workbook('1.xlsx')
+    data = xlrd.open_workbook('1.xls')
     table = data.sheets()[0]
     nrows = table.nrows  # 行数
     conn = sqlite3.connect('user.db')
@@ -88,6 +88,6 @@ def getuser():
 
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
-    main()
+    getuser()
     endtime = datetime.datetime.now()
     print(starttime,endtime)
