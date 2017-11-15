@@ -34,7 +34,7 @@ def main():
            SELECT id,
                  [username]
                  ,[password]
-             FROM user 
+             FROM user where id >1200
                """)
     useralllist =  c.fetchall()
     useralllist = list(useralllist)
@@ -56,13 +56,14 @@ def main():
 # 544631 张林森
 # 544635 暴亦金
 # 544637 杨洋
+# 544627 杜芳泽
 #投票
 def mulitvote(userlist):
     for user in userlist:
         username = user[1]
         password = user[2]
         helper = VoteHelper()
-        helper.vote(username,password,166525,24993,544631,544635,544637,3,4,5,6,7,8,9)
+        helper.vote(username,password,166525,24993,544629,544631,544635,544637,544627,5,6,7,8,9)
 
 def checklogin():
     conn = sqlite3.connect('user.db')
