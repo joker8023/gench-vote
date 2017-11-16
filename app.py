@@ -86,6 +86,7 @@ def checklogin():
 
 #获取excel数据
 def getuser():
+    +288852
     data = xlrd.open_workbook('1.xlsx')
     table = data.sheets()[0]
     nrows = table.nrows  # 行数
@@ -104,6 +105,6 @@ def getuser():
 
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
-    main()
+    checklogin()
     endtime = datetime.datetime.now()
     print(starttime,endtime)
