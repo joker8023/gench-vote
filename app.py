@@ -34,7 +34,7 @@ def main():
            SELECT id,
                  [username]
                  ,[password]
-             FROM user where id >1200
+             FROM user
                """)
     useralllist =  c.fetchall()
     useralllist = list(useralllist)
@@ -63,7 +63,7 @@ def mulitvote(userlist):
         username = user[1]
         password = user[2]
         helper = VoteHelper()
-        helper.vote(username,password,166525,24993,544629,544631,544635,544637,544627,5,6,7,8,9)
+        helper.vote(username,password,166525,24993,544629,544637,544101,4,3,5,6,7,8,9)
 
 def checklogin():
     conn = sqlite3.connect('user.db')
@@ -86,7 +86,6 @@ def checklogin():
 
 #获取excel数据
 def getuser():
-    +288852
     data = xlrd.open_workbook('1.xlsx')
     table = data.sheets()[0]
     nrows = table.nrows  # 行数
@@ -105,6 +104,6 @@ def getuser():
 
 if __name__ == '__main__':
     starttime = datetime.datetime.now()
-    checklogin()
+    main()
     endtime = datetime.datetime.now()
     print(starttime,endtime)
